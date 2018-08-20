@@ -6,7 +6,7 @@ interface LinkedListInterface {
   tail: LinkedListNode;
   prepend (value: any): LinkedList;
   append (value: any): LinkedList;
-  delete (value: LinkedListNode): LinkedListNode;
+  delete (value: any): LinkedListNode;
   find (value: any): boolean;
   deleteTail (): LinkedListNode;
   deleteHead (): LinkedListNode;
@@ -61,7 +61,7 @@ class LinkedList implements LinkedListInterface{
   /**
    * 删除一个节点
    */
-  delete (value: LinkedListNode): LinkedListNode | null {
+  delete (value: any): LinkedListNode | null {
     let deleteNode: LinkedListNode = null
     let currentNode: LinkedListNode = null
 
@@ -71,7 +71,7 @@ class LinkedList implements LinkedListInterface{
     }
     
     // 如果删除的节点等于头部的节点
-    while (this.head && isEqual(this.head, value)) {
+    while (this.head && isEqual(this.head.value, value)) {
       deleteNode = this.head
       // 头部变为当前头部的next
       this.head = this.head.next
@@ -84,13 +84,17 @@ class LinkedList implements LinkedListInterface{
       while (currentNode.next) {
         if (isEqual(currentNode.next.value, value)) {
           // 删除的节点
-          deleteNode = currentNode.next.value
+          deleteNode = currentNode.next
           // 跳过删除的节点进行链接删除的节点的下一个节点
           currentNode.next = currentNode.next.next
         } else {
           currentNode = currentNode.next
         }
       }
+    }
+
+    if (isEqual(this.tail.value, value)) {
+      this.tail = currentNode
     }
     
     return deleteNode

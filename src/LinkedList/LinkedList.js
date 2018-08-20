@@ -55,7 +55,7 @@ var LinkedList = /** @class */ (function () {
             return deleteNode;
         }
         // 如果删除的节点等于头部的节点
-        while (this.head && lodash_1.isEqual(this.head, value)) {
+        while (this.head && lodash_1.isEqual(this.head.value, value)) {
             deleteNode = this.head;
             // 头部变为当前头部的next
             this.head = this.head.next;
@@ -66,7 +66,7 @@ var LinkedList = /** @class */ (function () {
             while (currentNode.next) {
                 if (lodash_1.isEqual(currentNode.next.value, value)) {
                     // 删除的节点
-                    deleteNode = currentNode.next.value;
+                    deleteNode = currentNode.next;
                     // 跳过删除的节点进行链接删除的节点的下一个节点
                     currentNode.next = currentNode.next.next;
                 }
@@ -74,6 +74,9 @@ var LinkedList = /** @class */ (function () {
                     currentNode = currentNode.next;
                 }
             }
+        }
+        if (lodash_1.isEqual(this.tail.value, value)) {
+            this.tail = currentNode;
         }
         return deleteNode;
     };
