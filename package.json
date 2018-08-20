@@ -4,7 +4,7 @@
   "description": "[javascript-algorithms](https://github.com/trekhleb/javascript-algorithms/blob/master/README.zh-CN.md)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,10 @@
   "homepage": "https://github.com/BengBu-YueZhang/javascript-algorithms#readme",
   "dependencies": {
     "@types/lodash": "^4.14.116"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "lodash": "^4.17.10",
+    "mocha": "^5.2.0"
   }
 }

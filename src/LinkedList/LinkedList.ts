@@ -1,5 +1,5 @@
 import LinkedListNode from './LinkedListNode'
-import * as _ from 'lodash'
+import { isEqual } from "lodash"
 
 interface LinkedListInterface {
   head: LinkedListNode;
@@ -71,7 +71,7 @@ class LinkedList implements LinkedListInterface{
     }
     
     // 如果删除的节点等于头部的节点
-    while (this.head && _.isEqual(this.head, value)) {
+    while (this.head && isEqual(this.head, value)) {
       deleteNode = this.head
       // 头部变为当前头部的next
       this.head = this.head.next
@@ -82,7 +82,7 @@ class LinkedList implements LinkedListInterface{
     // 从头部开始循环查找链表
     if (currentNode !== null) {
       while (currentNode.next) {
-        if (_.isEqual(currentNode.next.value, value)) {
+        if (isEqual(currentNode.next.value, value)) {
           // 删除的节点
           deleteNode = currentNode.next.value
           // 跳过删除的节点进行链接删除的节点的下一个节点
@@ -111,7 +111,7 @@ class LinkedList implements LinkedListInterface{
 
     // 循环查找链表
     while(currentNode) {
-      if (value !== undefined && _.isEqual(currentNode.value, value)) {
+      if (value !== undefined && isEqual(currentNode.value, value)) {
         isHave = true
       }
       currentNode = currentNode.next
@@ -190,3 +190,5 @@ class LinkedList implements LinkedListInterface{
     return this
   }
 }
+
+export default LinkedList
