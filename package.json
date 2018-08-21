@@ -4,7 +4,7 @@
   "description": "[javascript-algorithms](https://github.com/trekhleb/javascript-algorithms/blob/master/README.zh-CN.md)",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "tsc; mocha"
   },
   "repository": {
     "type": "git",

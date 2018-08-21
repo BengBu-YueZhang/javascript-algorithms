@@ -1,7 +1,7 @@
 const expect = require('chai').expect
 const LinkedList = require('../src/LinkedList/LinkedList.js').default
 
-describe('链表测试单元', function () {
+describe.skip('链表测试单元', function () {
   it('prepend测试, 链表长度为0的情况下', function () {
     const linkedList = new LinkedList()
     linkedList.prepend('head')

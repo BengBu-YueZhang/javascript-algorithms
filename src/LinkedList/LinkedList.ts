@@ -32,7 +32,7 @@ class LinkedList implements LinkedListInterface{
   /**
    * 从链表前部添加一个节点
    */
-  prepend (value: any): LinkedList {
+  public prepend (value: any): LinkedList {
     const newNode = new LinkedListNode(value, this.head)
     this.head = newNode
     // 如果tail不存在head既是head也是tail
@@ -45,7 +45,7 @@ class LinkedList implements LinkedListInterface{
   /**
    * 从链表后部添加一个节点
    */
-  append (value: any): LinkedList {
+  public append (value: any): LinkedList {
     const newNode = new LinkedListNode(value)
     if (!this.head) {
       this.head = newNode
@@ -61,7 +61,7 @@ class LinkedList implements LinkedListInterface{
   /**
    * 删除一个节点
    */
-  delete (value: any): LinkedListNode | null {
+  public delete (value: any): LinkedListNode | null {
     let deleteNode: LinkedListNode = null
     let currentNode: LinkedListNode = null
 
@@ -103,7 +103,7 @@ class LinkedList implements LinkedListInterface{
   /**
    * 查找一个节点
    */
-  find (value: any): boolean {
+  public find (value: any): boolean {
     let isHave: boolean = false
     let currentNode: LinkedListNode = null
     
@@ -127,7 +127,7 @@ class LinkedList implements LinkedListInterface{
   /**
    * 删除尾部
    */
-  deleteTail (): LinkedListNode | null {
+  public deleteTail (): LinkedListNode | null {
     let deleteNode: LinkedListNode = this.tail
     let currentNode: LinkedListNode = this.head
 
@@ -153,7 +153,7 @@ class LinkedList implements LinkedListInterface{
   /**
    * 删除头部
    */
-  deleteHead (): LinkedListNode | null {
+  public deleteHead (): LinkedListNode | null {
     if (!this.head || !this.tail) {
       return null
     }
@@ -170,7 +170,7 @@ class LinkedList implements LinkedListInterface{
   /**
    * 将链表格式化为数组
    */
-  toArray (): Array<LinkedListNode> {
+  public toArray (): Array<LinkedListNode> {
     let nodes = []
     let currentNode = this.head
     while (currentNode) {
@@ -183,7 +183,7 @@ class LinkedList implements LinkedListInterface{
   /**
    * 将数组格式化为链表
    */
-  fromArray (arr: Array<any>): LinkedList {
+  public fromArray (arr: Array<any>): LinkedList {
     arr.forEach(a => this.append(a))
     return this
   }
