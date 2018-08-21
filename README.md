@@ -1,10 +1,8 @@
-# javascript-algorithms
+# 数据结构与算法
 
-> 使用TypeScript学习数据结构与算法, 学习内容基于[javascript-algorithms](https://github.com/trekhleb/javascript-algorithms/blob/master/README.zh-CN.md)
-, 《学习javascript数据算法结构》(第二版), 《算法》
+## 相关资料
 
-## 数据结构
-
-- [链表](https://github.com/trekhleb/javascript-algorithms/blob/master/src/data-structures/linked-list/LinkedList.js), [ts实现](https://github.com/BengBu-YueZhang/javascript-algorithms/tree/master/src)
-
-## 算法
+[JavaScript based examples of many popular algorithms and data structures](https://github.com/trekhleb/javascript-algorithms/blob/master/README.zh-CN.md)
+[LeetCode探索](https://leetcode-cn.com/explore/)
+[学习JavaScript数据结构与算法](http://www.ituring.com.cn/book/2029)
+[算法（第4版)](http://www.ituring.com.cn/book/875)
