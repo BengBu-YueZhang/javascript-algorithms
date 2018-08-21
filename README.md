@@ -5,6 +5,6 @@
 
 ## 数据结构
 
-- [链表](https://github.com/trekhleb/javascript-algorithms/blob/master/src/data-structures/linked-list/LinkedList.js)
+- [链表](https://github.com/trekhleb/javascript-algorithms/blob/master/src/data-structures/linked-list/LinkedList.js), [ts实现](https://github.com/BengBu-YueZhang/javascript-algorithms/tree/master/src)
 
 ## 算法

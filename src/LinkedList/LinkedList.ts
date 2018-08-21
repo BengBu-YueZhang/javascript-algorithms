@@ -157,16 +157,13 @@ class LinkedList implements LinkedListInterface{
     if (!this.head || !this.tail) {
       return null
     }
-
     let deleteNode = this.head
-
     if (this.head.next) {
       this.head = this.head.next
     } else {
       this.head = null
       this.tail = null
     }
-    
     return deleteNode
   }
 
