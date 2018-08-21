@@ -126,4 +126,56 @@ describe('链表测试', function () {
     expect(linkedList.tail.ele).to.equals('head')
     expect(linkedList.head.next).to.null
   })
+
+  it('removeAt, 长度为0, 删除随意的位置', function () {
+    let linkedList = new LinkedList()
+    linkedList.removeAt(10)
+    expect(linkedList.length).to.equals(0)
+    expect(linkedList.head).to.null
+    expect(linkedList.tail).to.null
+  })
+  
+  it('removeHead', function () {
+    let linkedList = new LinkedList()
+    linkedList.append('head')
+    linkedList.append('neck')
+    linkedList.removeHead()
+    expect(linkedList.length).to.equals(1)
+    expect(linkedList.head.ele).to.equal('neck')
+    expect(linkedList.tail.ele).to.equal('neck')
+  })
+
+  it('removeTail', function () {
+    let linkedList = new LinkedList()
+    linkedList.append('head')
+    linkedList.append('neck')
+    linkedList.removeTail()
+    expect(linkedList.length).to.equals(1)
+    expect(linkedList.head.ele).to.equal('head')
+    expect(linkedList.tail.ele).to.equal('head')
+  })
+
+  it('indexOf', function () {
+    let linkedList = new LinkedList()
+    linkedList.append('head')
+    linkedList.append('neck')
+    linkedList.append('body')
+    linkedList.append('tail')
+    linkedList.append('foot')
+    expect(linkedList.indexOf('tail')).to.equals(3)
+  })
+
+  it('find', function () {
+    let linkedList = new LinkedList()
+    linkedList.append('head')
+    linkedList.append('neck')
+    linkedList.append('body')
+    linkedList.append('tail')
+    linkedList.append('foot')
+    expect(linkedList.find('tail1')).to.false
+    expect(linkedList.find('tail')).to.true
+  })
+
+  it.skip('remove', function () {
+  })
 })

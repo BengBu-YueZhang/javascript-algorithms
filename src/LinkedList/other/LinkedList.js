@@ -80,27 +80,9 @@ var LinkedList = /** @class */ (function () {
             // 从头插入的情况下
             if (position === 0) {
                 return this.prepend(ele);
-                // node = new LinkedListNode(ele, this.head)
-                // this.head = node
-                // if (this.tail === null) {
-                //   this.tail = node
-                // }
-                // this.length += 1
-                // return this
-                // 从尾插入的情况下
             }
             else if (position === this.length) {
                 return this.append(ele);
-                // node = new LinkedListNode(ele, null)
-                // if (this.head === null || this.tail === null) {
-                //   this.head = node
-                //   this.tail = node
-                // } else {
-                //   this.tail.next = node
-                //   this.tail = node
-                // }
-                // this.length += 1
-                // return this
             }
             else {
                 var index = 1;
@@ -124,13 +106,30 @@ var LinkedList = /** @class */ (function () {
             return false;
         }
     };
-    LinkedList.prototype.indexOf = function () {
+    LinkedList.prototype.indexOf = function (value) {
+        var index = 0;
+        var currentNode = this.head;
+        while (currentNode.ele !== value) {
+            currentNode = currentNode.next;
+            index += 1;
+        }
+        return index;
     };
-    LinkedList.prototype.find = function () {
+    LinkedList.prototype.find = function (value) {
+        var currentNode = this.head;
+        var isEmpty = false;
+        while (currentNode) {
+            if (currentNode.ele === value) {
+                isEmpty = true;
+                return isEmpty;
+            }
+            else {
+                currentNode = currentNode.next;
+            }
+        }
+        return isEmpty;
     };
-    LinkedList.prototype.size = function () {
-    };
-    LinkedList.prototype.remove = function () {
+    LinkedList.prototype.remove = function (value) {
     };
     /**
      * 移除链表中任意位置的元素
@@ -140,27 +139,10 @@ var LinkedList = /** @class */ (function () {
         if (position >= 0 && position < this.length) {
             if (position === 0) {
                 // 删除第一个的情况下
-                var removeNode = this.head;
-                this.head = this.head.next;
-                this.length -= 1;
-                return removeNode;
+                return this.removeHead();
             }
             else if (position === this.length - 1) {
-                // 删除是最后的一个情况
-                var removeNode = this.tail;
-                var currentNode = this.head.next;
-                var prevNode = this.head;
-                var index = 1;
-                // 找到最后一个的前一个，修改它的next的指向
-                while (index !== position) {
-                    prevNode = currentNode;
-                    currentNode = currentNode.next;
-                    index += 1;
-                }
-                prevNode.next = null;
-                this.tail = prevNode;
-                this.length -= 1;
-                return removeNode;
+                return this.removeTail();
             }
             else {
                 // 删除不是第一个情况下, 也不是第一个的情况
@@ -185,8 +167,37 @@ var LinkedList = /** @class */ (function () {
         }
     };
     LinkedList.prototype.removeHead = function () {
+        if (this.length > 0) {
+            var removeNode = this.head;
+            this.head = this.head.next;
+            this.length -= 1;
+            return removeNode;
+        }
+        else {
+            return null;
+        }
     };
     LinkedList.prototype.removeTail = function () {
+        // 删除是最后的一个情况
+        if (this.length > 0) {
+            var removeNode = this.tail;
+            var currentNode = this.head.next;
+            var prevNode = this.head;
+            var index = 1;
+            // 找到最后一个的前一个，修改它的next的指向
+            while (index !== this.length - 1) {
+                prevNode = currentNode;
+                currentNode = currentNode.next;
+                index += 1;
+            }
+            prevNode.next = null;
+            this.tail = prevNode;
+            this.length -= 1;
+            return removeNode;
+        }
+        else {
+            return null;
+        }
     };
     LinkedList.prototype.fromArray = function () {
     };

@@ -81,26 +81,8 @@ class LinkedList {
       // 从头插入的情况下
       if (position === 0) {
         return this.prepend(ele)
-        // node = new LinkedListNode(ele, this.head)
-        // this.head = node
-        // if (this.tail === null) {
-        //   this.tail = node
-        // }
-        // this.length += 1
-        // return this
-      // 从尾插入的情况下
       } else if (position === this.length) {
         return this.append(ele)
-        // node = new LinkedListNode(ele, null)
-        // if (this.head === null || this.tail === null) {
-        //   this.head = node
-        //   this.tail = node
-        // } else {
-        //   this.tail.next = node
-        //   this.tail = node
-        // }
-        // this.length += 1
-        // return this
       } else {
         let index = 1
         let currentNode = this.head.next
@@ -122,16 +104,31 @@ class LinkedList {
     }
   }
 
-  public indexOf () {
+  public indexOf (value: any): number {
+    let index:number = 0
+    let currentNode = this.head
+    while (currentNode.ele !== value) {
+      currentNode = currentNode.next
+      index += 1
+    }
+    return index
   }
 
-  public find () {
+  public find (value: any): boolean {
+    let currentNode = this.head
+    let isEmpty = false
+    while(currentNode) {
+      if (currentNode.ele === value) {
+        isEmpty = true
+        return isEmpty
+      } else {
+        currentNode = currentNode.next
+      }
+    }
+    return isEmpty
   }
 
-  public size () {
-  }
-
-  public remove () {
+  public remove (value: any) {
   }
 
   /**
@@ -142,26 +139,9 @@ class LinkedList {
     if (position >= 0 && position < this.length) {
       if (position === 0) {
         // 删除第一个的情况下
-        let removeNode = this.head
-        this.head = this.head.next
-        this.length -= 1
-        return removeNode
+        return this.removeHead()
       } else if (position === this.length - 1) {
-        // 删除是最后的一个情况
-        let removeNode = this.tail
-        let currentNode = this.head.next
-        let prevNode = this.head
-        let index = 1
-        // 找到最后一个的前一个，修改它的next的指向
-        while (index !== position) {
-          prevNode = currentNode
-          currentNode = currentNode.next
-          index += 1
-        }
-        prevNode.next = null
-        this.tail = prevNode
-        this.length -= 1
-        return removeNode
+        return this.removeTail()
       } else {
         // 删除不是第一个情况下, 也不是第一个的情况
         // 需要删除的节点
@@ -185,15 +165,36 @@ class LinkedList {
   }
 
   public removeHead () {
+    if (this.length > 0) {
+      let removeNode = this.head
+      this.head = this.head.next
+      this.length -= 1
+      return removeNode
+    } else {
+      return null
+    }
   }
 
   public removeTail () {
-  }
-
-  public fromArray () {
-  }
-
-  public toArray () {
+    // 删除是最后的一个情况
+    if (this.length > 0) {
+      let removeNode = this.tail
+      let currentNode = this.head.next
+      let prevNode = this.head
+      let index = 1
+      // 找到最后一个的前一个，修改它的next的指向
+      while (index !== this.length - 1) {
+        prevNode = currentNode
+        currentNode = currentNode.next
+        index += 1
+      }
+      prevNode.next = null
+      this.tail = prevNode
+      this.length -= 1
+      return removeNode
+    } else {
+      return null
+    }
   }
 }
 
