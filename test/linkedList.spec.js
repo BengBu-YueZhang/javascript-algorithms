@@ -78,4 +78,62 @@ describe('链表测试单元', function () {
     expect(linkedList.find('tail')).to.true
     expect(linkedList.find('body')).to.false
   })
+
+  it('链表长度为0, 测试deleteTail', function () {
+    const linkedList = new LinkedList()
+    expect(linkedList.deleteTail()).to.null
+  })
+
+  it('链表长度为1, 测试deleteTail', function () {
+    const linkedList = new LinkedList()
+    linkedList.append('head')
+    expect(linkedList.deleteTail().value).to.equals('head')
+  })
+
+  it('链表长度为2, 测试deleteTail', function () {
+    const linkedList = new LinkedList()
+    linkedList.append('head')
+    linkedList.append('tail')
+    linkedList.deleteTail()
+    expect(linkedList.tail.value).to.equals('head')
+    expect(linkedList.head.value).to.equals('head')
+  })
+
+  it('链表长度为0, 测试deleteHead', function () {
+    const linkedList = new LinkedList()
+    expect(linkedList.deleteHead()).to.null
+  })
+
+  it('链表长度为1, 测试deleteHead', function () {
+    const linkedList = new LinkedList()
+    linkedList.append('head')
+    expect(linkedList.deleteHead().value).to.equals('head')
+  })
+
+  it('链表长度为2, 测试deleteHead', function () {
+    const linkedList = new LinkedList()
+    linkedList.append('head')
+    linkedList.append('tail')
+    expect(linkedList.deleteHead().value).to.equals('head')
+    expect(linkedList.head.value).to.equals('tail')
+    expect(linkedList.tail.value).to.equals('tail')
+  })
+
+  it('toArray', function () {
+    const linkedList = new LinkedList()
+    let arr = []
+    linkedList.append('head')
+    linkedList.append('body')
+    linkedList.append('tail')
+    arr = linkedList.toArray()
+    arr = arr.map(a => a.value)
+    expect(arr).to.deep.equals(['head', 'body', 'tail'])
+  })
+
+  it('fromArray', function () {
+    const linkedList = new LinkedList()
+    linkedList.fromArray(['head', 'tail'])
+    expect(linkedList.head.value).to.equals('head')
+    expect(linkedList.tail.value).to.equals('tail')
+  })
 })

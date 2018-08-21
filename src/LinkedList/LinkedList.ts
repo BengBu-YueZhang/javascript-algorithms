@@ -128,49 +128,46 @@ class LinkedList implements LinkedListInterface{
    * 删除尾部
    */
   deleteTail (): LinkedListNode | null {
-    let currentNode: LinkedListNode = null
-    
-    // 如果链表中只存在一位
-    if (this.head === this.tail) {
-      this.head = null
+    let deleteNode: LinkedListNode = this.tail
+    let currentNode: LinkedListNode = this.head
+
+    if (this.tail === this.head) {
       this.tail = null
+      this.head = null
+      return deleteNode
     }
 
-    currentNode = this.head
-
-    // 循环列表查找next为null的节点，此节点为tail
     while(currentNode.next) {
-      currentNode = currentNode.next
+      if (!currentNode.next.next) {
+        currentNode.next = null
+      } else {
+        currentNode = currentNode.next
+      }
     }
-
-    currentNode.next = null
 
     this.tail = currentNode
 
-    return currentNode
+    return deleteNode
   }
 
   /**
    * 删除头部
    */
   deleteHead (): LinkedListNode | null {
-    let currentNode: LinkedListNode = null
-
-    if (!this.head) {
+    if (!this.head || !this.tail) {
       return null
     }
 
-    currentNode = this.head
+    let deleteNode = this.head
 
-    // 如果存在下一个，将当前的head.next作为head
     if (this.head.next) {
       this.head = this.head.next
     } else {
       this.head = null
       this.tail = null
     }
-
-    return currentNode
+    
+    return deleteNode
   }
 
   /**

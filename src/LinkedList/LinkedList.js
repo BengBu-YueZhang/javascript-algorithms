@@ -103,31 +103,32 @@ var LinkedList = /** @class */ (function () {
      * 删除尾部
      */
     LinkedList.prototype.deleteTail = function () {
-        var currentNode = null;
-        // 如果链表中只存在一位
-        if (this.head === this.tail) {
-            this.head = null;
+        var deleteNode = this.tail;
+        var currentNode = this.head;
+        if (this.tail === this.head) {
             this.tail = null;
+            this.head = null;
+            return deleteNode;
         }
-        currentNode = this.head;
-        // 循环列表查找next为null的节点，此节点为tail
         while (currentNode.next) {
-            currentNode = currentNode.next;
+            if (!currentNode.next.next) {
+                currentNode.next = null;
+            }
+            else {
+                currentNode = currentNode.next;
+            }
         }
-        currentNode.next = null;
         this.tail = currentNode;
-        return currentNode;
+        return deleteNode;
     };
     /**
      * 删除头部
      */
     LinkedList.prototype.deleteHead = function () {
-        var currentNode = null;
-        if (!this.head) {
+        if (!this.head || !this.tail) {
             return null;
         }
-        currentNode = this.head;
-        // 如果存在下一个，将当前的head.next作为head
+        var deleteNode = this.head;
         if (this.head.next) {
             this.head = this.head.next;
         }
@@ -135,7 +136,7 @@ var LinkedList = /** @class */ (function () {
             this.head = null;
             this.tail = null;
         }
-        return currentNode;
+        return deleteNode;
     };
     /**
      * 将链表格式化为数组
