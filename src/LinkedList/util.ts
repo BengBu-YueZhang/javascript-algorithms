@@ -59,6 +59,50 @@ function hasCycleEntrance (head: LinkedListNode): LinkedListNode | Boolean {
 
 /**
  * 检测链表是否相交, 并找到交叉的入口
+ * 这道题目的思路如下，链表a，与链表b，如果相交，将a的尾巴连到b的头部，相交的链表会形成环，然后沿用上面两题的思路就可以了
  */
-function hasCross (): LinkedList {
+function hasCross (headA: LinkedListNode, headB: LinkedListNode): LinkedListNode {
+  if (headA && headB) {
+        
+    // 自身相等的情况下
+    if (headA === headB) {
+        return headA
+    }
+    
+    // a链子的结尾连上b链的头部
+    let lastA: LinkedListNode = headA
+    let lastB: LinkedListNode = headB
+    
+    while (lastA && lastA.next) {
+        lastA = lastA.next
+    }
+    
+    lastA.next = headB
+    
+    let fast: LinkedListNode = headA
+    let slow: LinkedListNode = headA
+    
+    while (fast && fast.next && fast.next.next) {
+        slow = slow.next
+        fast = fast.next.next
+        
+        if (slow === fast) {
+            fast = headA
+            
+            while (slow !== fast) {
+                slow = slow.next
+                fast = fast.next
+                
+                if (slow === fast) {
+                    lastA.next = null
+                    return slow
+                }
+            }
+            lastA.next = null
+            return fast
+        } 
+    }
+    lastA.next = null  
+    return null  
+  } 
 }
