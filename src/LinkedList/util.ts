@@ -106,3 +106,28 @@ function hasCross (headA: LinkedListNode, headB: LinkedListNode): LinkedListNode
     return null  
   } 
 }
+
+/**
+ * 反转链表
+ * 思路
+ *  1 -> 2 -> 3 -> null
+ *  2 -> 1 -> 3 -> null
+ *  3 -> 2 -> 1 -> null
+ */
+function reverse (head: LinkedListNode): LinkedListNode {
+
+  let newHead:LinkedListNode = head
+    
+    function unknown () {
+        let a = head.next
+        let b = head.next.next
+        a.next = newHead
+        head.next = b
+        newHead = a
+    }
+    
+    while (head && head.next) {
+       unknown() 
+    }
+    return newHead
+}
