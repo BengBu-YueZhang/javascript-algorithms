@@ -70,4 +70,7 @@ describe('链表', function () {
     linkedList.addAtIndex(4, 2)
   })
 
+  it('hasCycle', function () {
+  })
+
 })
