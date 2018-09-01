@@ -131,3 +131,39 @@ function reverse (head: LinkedListNode): LinkedListNode {
     }
     return newHead
 }
+
+/**
+ * 给定对应的number删除链表中的节点
+ */
+function removeElements (head: LinkedListNode, val: number): LinkedListNode {
+  function deleteHead () {
+    head = head.next
+    if (head && head.val === val) {
+        deleteHead()
+    }
+  } 
+
+  if (head) {
+      if (head.val === val) {
+          // 递归删除头部的节点
+          deleteHead()
+      }
+
+      if (head && head.next) {
+        let prevNode = head
+        let currentNode = head.next
+
+        while (currentNode) {
+          // 删除链表中间符合条件的节点
+            if (currentNode.val === val) {
+                prevNode.next = currentNode.next
+                currentNode = currentNode.next
+            } else {
+                prevNode = prevNode.next
+                currentNode = currentNode.next
+            }
+        }
+      }  
+  }
+  return head
+}
