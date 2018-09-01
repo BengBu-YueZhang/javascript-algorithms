@@ -126,4 +126,7 @@ class LinkedList implements LinkedListInterface {
   }
 }
 
-export default LinkedList
+export {
+  LinkedListNode,
+  LinkedList
+}
