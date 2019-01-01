@@ -10,6 +10,7 @@ let result = []
 const len = A.length
  
 const getNext = (current, startPos) => {
+  // console.log(current)
   if (startPos >= len - 1) {
     return undefined
   } else {
@@ -19,15 +20,19 @@ const getNext = (current, startPos) => {
     } else {
       sum = current[current.length - 1] + A[startPos]
     }
-    let nextIndex = A.indexOf(sum)
-    if (nextIndex < startPos + 1) {
-      return getNext(current, startPos + 1)
+    let afterIndex = A.indexOf(sum)
+    if (afterIndex < startPos + 1) {
+      if (current.length > 1) {
+        return undefined
+      } else {
+        return getNext(current, startPos + 1)
+      }
     } else {
       return {
         nextValue: A[startPos],
         nextIndex: startPos,
-        afterValue: A[nextIndex],
-        afterIndex: nextIndex
+        afterValue: A[afterIndex],
+        afterIndex: afterIndex
       }
     }
   }
@@ -41,7 +46,11 @@ const getFibonacci = (init, startPos) => {
   } else {
     const { nextValue, afterValue, afterIndex } = next
     // 使用next
-    getFibonacci([...fibonacci, nextValue, afterValue], afterIndex + 1)
+    if (init.length > 1) {
+      getFibonacci([...fibonacci, afterValue], afterIndex + 1)
+    } else {
+      getFibonacci([...fibonacci, nextValue, afterValue], afterIndex + 1)
+    }
     // 不使用next
     getFibonacci([...fibonacci], startPos + 1)
   }
