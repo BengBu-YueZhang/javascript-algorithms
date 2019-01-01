@@ -319,7 +319,7 @@ function mergeTwoLists (l1: LinkedListNode, l2: LinkedListNode): LinkedListNode 
 function addTwoNumbers (l1: LinkedListNode, l2: LinkedListNode): LinkedListNode {
     let newHead: LinkedListNode = new LinkedListNode(0)
     let newTail: LinkedListNode = newHead
-    // carry是近卫，8 + 8 = 16 ，进位为1
+    // carry是进位，8 + 8 = 16 ，进位为1
     let carry: number = 0
     while (l1 || l2) {
         let a: number = l1 ? l1.val : 0
