@@ -10,7 +10,6 @@ let result = []
 const len = A.length
  
 const getNext = (current, startPos) => {
-  // console.log(current)
   if (startPos >= len - 1) {
     return undefined
   } else {
@@ -45,13 +44,11 @@ const getFibonacci = (init, startPos) => {
     result.push(fibonacci)
   } else {
     const { nextValue, afterValue, afterIndex } = next
-    // 使用next
     if (init.length > 1) {
       getFibonacci([...fibonacci, afterValue], afterIndex + 1)
     } else {
       getFibonacci([...fibonacci, nextValue, afterValue], afterIndex + 1)
     }
-    // 不使用next
     getFibonacci([...fibonacci], startPos + 1)
   }
 }
