@@ -58,5 +58,25 @@ var minSubArrayLen = function (s, nums) {
   //     }
   //     return 0
 
+  let start = 0
+  let end = -1
+  let sum = 0
+  let minLen = nums.length + 1
 
+  while (start < nums.length) {
+    if (sum < s && end + 1 < nums.length) {
+      end += 1
+      sum += nums[end]
+    } else {
+      sum -= nums[start]
+      start += 1
+    }
+    if (sum >= s) {
+      minLen = Math.min(minLen, end - start + 1)
+    }
+  }
+  if (minLen === nums.length + 1) {
+    return 0
+  }
+  return minLen
 };
