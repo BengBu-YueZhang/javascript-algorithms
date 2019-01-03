@@ -60,6 +60,7 @@ var minSubArrayLen = function (s, nums) {
 
   let start = 0
   let end = -1
+  // sum的和始终是两个指针之间的和
   let sum = 0
   let minLen = nums.length + 1
 
