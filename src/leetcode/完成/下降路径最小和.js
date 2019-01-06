@@ -88,13 +88,3 @@ var minFallingPathSumMethod2 = function (A) {
   }
   return Math.min.apply(null, dp[len - 1])
 }
-
-console.log(
-  minFallingPathSumMethod2(
-    [
-      [1,2,3],
-      [4,5,6],
-      [7,8,9]
-    ]
-  )
-)
