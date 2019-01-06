@@ -49,7 +49,7 @@ var minFallingPathSumMethod1 = function (A) {
           return item
         })
         // 递归
-        arr.push(minFallingPathSum([nextFirst, ...nextA]))
+        arr.push(minFallingPathSumMethod1([nextFirst, ...nextA]))
       } else {
         arr.push(first[i])
       }
