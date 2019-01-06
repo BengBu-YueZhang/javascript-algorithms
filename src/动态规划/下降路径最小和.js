@@ -16,48 +16,48 @@
  * @param {number[][]} A
  * @return {number}
  */
-var minFallingPathSumMethod1 = function (A) {
-  let minPath = 0
-  if (A.length === 0) {
-    minPath = 0
-  } else {
-    let first = A[0]
-    let newA = [...A]
-    let arr = []
-    newA.splice(0, 1)
-    for (let i = 0; i < first.length; i++) {
-      if (first[i] === undefined) {
-        continue
-      }
-      if (newA.length) {
-        let start = i - 1 < 0 ? 0 : i - 1
-        let end = i + 1 > newA[0].length - 1 ? newA[0].length - 1 : i + 1
-        // 不能进行计算的位置填充undefined
-        let nextFirst = newA[0].map((item, index) => {
-          if (index < start || index > end) {
-            return undefined
-          } else {
-            return item
-          }
-        })
-        let nextA = [...newA]
-        nextA.splice(0, 1)
-        nextFirst = nextFirst.map(item => {
-          if (item !== undefined) {
-            item += first[i]
-          }
-          return item
-        })
-        // 递归
-        arr.push(minFallingPathSumMethod1([nextFirst, ...nextA]))
-      } else {
-        arr.push(first[i])
-      }
-    }
-    minPath = Math.min.apply(null, arr)
-  }
-  return minPath
-}
+// var minFallingPathSumMethod1 = function (A) {
+//   let minPath = 0
+//   if (A.length === 0) {
+//     minPath = 0
+//   } else {
+//     let first = A[0]
+//     let newA = [...A]
+//     let arr = []
+//     newA.splice(0, 1)
+//     for (let i = 0; i < first.length; i++) {
+//       if (first[i] === undefined) {
+//         continue
+//       }
+//       if (newA.length) {
+//         let start = i - 1 < 0 ? 0 : i - 1
+//         let end = i + 1 > newA[0].length - 1 ? newA[0].length - 1 : i + 1
+//         // 不能进行计算的位置填充undefined
+//         let nextFirst = newA[0].map((item, index) => {
+//           if (index < start || index > end) {
+//             return undefined
+//           } else {
+//             return item
+//           }
+//         })
+//         let nextA = [...newA]
+//         nextA.splice(0, 1)
+//         nextFirst = nextFirst.map(item => {
+//           if (item !== undefined) {
+//             item += first[i]
+//           }
+//           return item
+//         })
+//         // 递归
+//         arr.push(minFallingPathSumMethod1([nextFirst, ...nextA]))
+//       } else {
+//         arr.push(first[i])
+//       }
+//     }
+//     minPath = Math.min.apply(null, arr)
+//   }
+//   return minPath
+// }
 
 /**
  * 最优解，通过谷歌得知
