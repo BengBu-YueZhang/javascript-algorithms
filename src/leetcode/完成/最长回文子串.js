@@ -28,6 +28,7 @@ var longestPalindrome = function(s) {
   let maxLen = 0
   for (let i = 1; i < newS.length; i++) {
     p[i] = mx > i ? Math.min(p[2 * id - i], mx - i) : 1
+    // 这个时候只能一个接一个的去比较
     while (newS[i + p[i]] === newS[i - p[i]]) p[i] += 1
     if (mx < i + p[i]) {
       mx = i + p[i]
