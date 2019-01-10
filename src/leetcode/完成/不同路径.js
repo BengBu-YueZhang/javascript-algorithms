@@ -55,7 +55,3 @@ var uniquePaths = function(m, n) {
 
   return hashMap.size
 };
-
-console.log(
-  uniquePaths(1, 2)
-)
