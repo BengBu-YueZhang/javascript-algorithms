@@ -6,7 +6,6 @@
 // 滑动窗口
 var minSubArrayLen = function (s, nums) {
   // 暴力法就不试了 :-(
-
   // 我个人的解法
   // 没有通过大量数据的测试
   // 执行时间超时
