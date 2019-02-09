@@ -4,6 +4,7 @@
  */
 var MyCircularQueue = function(k) {
   this.queue = new Array(k)
+  this.queue.fill(undefined)
   this.head = -1
   this.tail = -1
   this.length = k
@@ -44,11 +45,11 @@ MyCircularQueue.prototype.deQueue = function() {
       return false
   } else {
       if (this.head === this.tail) {
-          this.queue.splice(this.head, 1)
+          this.queue.splice(this.head, 1, undefined)
           this.head = -1
           this.tail = -1
       } else {
-          this.queue.splice(this.head, 1)
+          this.queue.splice(this.head, 1, undefined)
           this.head += 1
           if (this.head >= this.length) {
               this.head = 0
