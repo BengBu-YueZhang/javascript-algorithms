@@ -9,18 +9,18 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-var inorderTraversal = function (root) {
+var postorderTraversal = function (root) {
   let result = []
   const traversing = (node) => {
     if (!node) return
     if (node.left) {
       traversing(node.left)
     }
-    if (node.val) {
-      result.push(node.val)
-    }
     if (node.right) {
       traversing(node.right)
+    }
+    if (node.val) {
+      result.push(node.val)
     }
   }
   traversing(root)
