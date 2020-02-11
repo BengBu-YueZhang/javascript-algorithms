@@ -25,7 +25,7 @@ MyLinkedList.prototype.get = function(index) {
         var currentIndex = null
         var currentNode = null
         // 减少遍历的次数
-        if (this.index < this.length / 2) {
+        if (index < this.length / 2) {
             currentIndex = 0
             currentNode = this.head
             while (currentIndex !== index) {
@@ -98,7 +98,7 @@ MyLinkedList.prototype.addAtIndex = function(index, val) {
         var currentIndex = null
         var currentNode = null
         var prevNode = null
-        if (this.index < this.length / 2) {
+        if (index < this.length / 2) {
             currentIndex = 0
             currentNode = this.head
             while (currentIndex !== index) {
@@ -128,30 +128,53 @@ MyLinkedList.prototype.addAtIndex = function(index, val) {
  * @return {void}
  */
 MyLinkedList.prototype.deleteAtIndex = function(index) {
-    var currentIndex = null
-    var currentNode = null
-    var prevNode = null
-    var nextNode = null
-    if (this.index < this.length / 2) {
-        currentIndex = 0
-        currentNode = this.head
-        while (currentIndex !== index) {
-            currentIndex += 1
-            currentNode = this.head.next
-        }
-    } else {
-        currentIndex = this.length - 1
-        currentNode = this.tail
-        while (currentIndex !== index) {
-            currentIndex -= 1
-            currentNode = this.tail.prev
+    // index有效的范围
+    if (index >= 0 && index < this.length - 1) {
+        if (this.length === 1) {
+            this.head = null
+            this.tail = null
+            this.length = 0
+        } else {
+            if (index === 0) {
+                var head = this.head
+                var newHead = this.head.next
+                newHead.prev = null
+                this.head = newHead
+                this.length -= 1
+            } else if (index === this.length - 1) {
+                var tail = this.tail
+                var newTail = this.tail.prev
+                newTail.next = null
+                this.tail = newTail
+                this.length -= 1
+            } else if (index > 0 && index < this.length - 1) {
+                var currentIndex = null
+                var currentNode = null
+                var prevNode = null
+                var nextNode = null
+                if (this.index < this.length / 2) {
+                    currentIndex = 0
+                    currentNode = this.head
+                    while (currentIndex !== index) {
+                        currentIndex += 1
+                        currentNode = this.head.next
+                    }
+                } else {
+                    currentIndex = this.length - 1
+                    currentNode = this.tail
+                    while (currentIndex !== index) {
+                        currentIndex -= 1
+                        currentNode = this.tail.prev
+                    }
+                }
+                prevNode = currentNode.prev
+                nextNode = currentNode.next
+                prevNode.next = nextNode
+                nextNode.prev = prevNode
+                this.length -= 1
+            }
         }
     }
-    prevNode = currentNode.prev
-    nextNode = currentNode.next
-    prevNode.next = nextNode
-    nextNode.prev = prevNode
-    this.length -= 1
 };
 
 /** 
