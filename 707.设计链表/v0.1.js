@@ -184,3 +184,26 @@ MyLinkedList.prototype.deleteAtIndex = function(index) {
  * obj.addAtIndex(index,val)
  * obj.deleteAtIndex(index)
  */
+
+// [get","get","addAtTail"]
+// [[2],[5],[4]]
+
+let list = new MyLinkedList()
+list.addAtHead(7)
+list.addAtTail(7)
+list.addAtHead(9)
+list.addAtTail(8)
+list.addAtHead(6)
+list.addAtHead(0)
+list.addAtHead(0)
+// 0 0 6 9 7 7 8
+console.log(list.head.val)
+console.log(list.head.next.val)
+console.log(list.head.next.next.val)
+console.log(list.head.next.next.next.val)
+console.log(list.head.next.next.next.next.val)
+console.log(list.head.next.next.next.next.next.val)
+console.log(list.head.next.next.next.next.next.next.val)
+
+["MyLinkedList","addAtHead","addAtTail","addAtHead","addAtTail","addAtHead","addAtHead","get","addAtHead"]
+[[],[7],[7],[9],[8],[6],[0],[5],[0]]
