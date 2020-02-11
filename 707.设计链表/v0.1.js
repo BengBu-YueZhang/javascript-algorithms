@@ -30,14 +30,14 @@ MyLinkedList.prototype.get = function(index) {
             currentNode = this.head
             while (currentIndex !== index) {
                 currentIndex += 1
-                currentNode = this.head.next
+                currentNode = currentNode.next
             } 
         } else {
             currentIndex = this.length - 1
             currentNode = this.tail
             while (currentIndex !== index) {
                 currentIndex -= 1
-                currentNode = this.tail.prev
+                currentNode = currentNode.prev
             }
         }
         return currentNode.val
@@ -103,14 +103,14 @@ MyLinkedList.prototype.addAtIndex = function(index, val) {
             currentNode = this.head
             while (currentIndex !== index) {
                 currentIndex += 1
-                currentNode = this.head.next
+                currentNode = currentNode.next
             }
         } else {
             currentIndex = this.length - 1
             currentNode = this.tail
             while (currentIndex !== index) {
                 currentIndex -= 1
-                currentNode = this.tail.prev
+                currentNode = currentNode.prev
             }
         }
         prevNode = currentNode.prev
@@ -155,14 +155,14 @@ MyLinkedList.prototype.deleteAtIndex = function(index) {
                     currentNode = this.head
                     while (currentIndex !== index) {
                         currentIndex += 1
-                        currentNode = this.head.next
+                        currentNode = currentNode.next
                     }
                 } else {
                     currentIndex = this.length - 1
                     currentNode = this.tail
                     while (currentIndex !== index) {
                         currentIndex -= 1
-                        currentNode = this.tail.prev
+                        currentNode = currentNode.prev
                     }
                 }
                 prevNode = currentNode.prev
