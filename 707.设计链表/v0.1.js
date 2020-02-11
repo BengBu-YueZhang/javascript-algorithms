@@ -1,6 +1,8 @@
-var MyNode = function () {
+var MyNode = function (val, next, prev) {
+    this.val = val
+    this.next = next
+    this.prev = prev
 }
-
 
 /**
  * Initialize your data structure here.
@@ -17,7 +19,27 @@ var MyLinkedList = function() {
  * @return {number}
  */
 MyLinkedList.prototype.get = function(index) {
-    
+    if (index >= this.length || this.length === 0) {
+        return -1
+    } else {
+        // 减少遍历的次数
+        if (this.index < this.length / 2) {
+            var currentIndex = 0
+            var currentNode = this.head
+            while (currentIndex !== index) {
+                currentIndex += 1
+                currentNode = this.head.next
+            }
+            return currentNode
+        } else {
+            var currentIndex = this.length - 1
+            var currentNode = this.tail
+            while (currentIndex !== index) {
+                currentIndex -= 1
+                currentNode = this.tail.prev
+            }
+        }
+    }
 };
 
 /**
@@ -26,7 +48,17 @@ MyLinkedList.prototype.get = function(index) {
  * @return {void}
  */
 MyLinkedList.prototype.addAtHead = function(val) {
-    
+    var node = new MyNode(val, null, null)
+    if (!this.head) {
+        this.head = node
+        this.tail = this.head
+    } else {
+        var head = this.head
+        node.next = head
+        head.prev = node
+        this.head = node
+    }
+    this.length += 1
 };
 
 /**
@@ -35,7 +67,17 @@ MyLinkedList.prototype.addAtHead = function(val) {
  * @return {void}
  */
 MyLinkedList.prototype.addAtTail = function(val) {
-    
+    var node = new MyNode(val, null, null)
+    if (!this.tail) {
+        this.tail = node
+        this.head = this.tail
+    } else {
+        var tail = this.tail
+        node.prev = tail
+        tail.next = node
+        this.tail = node
+    }
+    this.length += 1
 };
 
 /**
@@ -45,7 +87,36 @@ MyLinkedList.prototype.addAtTail = function(val) {
  * @return {void}
  */
 MyLinkedList.prototype.addAtIndex = function(index, val) {
-    
+    if (index <= 0) {
+        this.addAtHead(val)
+    } else if (index === this.length) {
+        this.addAtTail(val)
+    } else if (index > 0 && index < this.length) {
+        var node = new MyNode(val, null, null)
+        var currentIndex = null
+        var currentNode = null
+        var prevNode = null
+        if (this.index < this.length / 2) {
+            currentIndex = 0
+            currentNode = this.head
+            while (currentIndex !== index) {
+                currentIndex += 1
+                currentNode = this.head.next
+            }
+        } else {
+            currentIndex = this.length - 1
+            currentNode = this.tail
+            while (currentIndex !== index) {
+                currentIndex -= 1
+                currentNode = this.tail.prev
+            }
+        }
+        prevNode = currentNode.prev
+        prevNode.next = node
+        node.prev = prevNode
+        currentNode.prev = node
+        node.next = currentNode
+    }
 };
 
 /**
@@ -54,7 +125,29 @@ MyLinkedList.prototype.addAtIndex = function(index, val) {
  * @return {void}
  */
 MyLinkedList.prototype.deleteAtIndex = function(index) {
-    
+    var currentIndex = null
+    var currentNode = null
+    var prevNode = null
+    var nextNode = null
+    if (this.index < this.length / 2) {
+        currentIndex = 0
+        currentNode = this.head
+        while (currentIndex !== index) {
+            currentIndex += 1
+            currentNode = this.head.next
+        }
+    } else {
+        currentIndex = this.length - 1
+        currentNode = this.tail
+        while (currentIndex !== index) {
+            currentIndex -= 1
+            currentNode = this.tail.prev
+        }
+    }
+    prevNode = currentNode.prev
+    nextNode = currentNode.next
+    prevNode.next = nextNode
+    nextNode.prev = prevNode
 };
 
 /** 
