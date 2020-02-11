@@ -22,23 +22,25 @@ MyLinkedList.prototype.get = function(index) {
     if (index >= this.length || this.length === 0) {
         return -1
     } else {
+        var currentIndex = null
+        var currentNode = null
         // 减少遍历的次数
         if (this.index < this.length / 2) {
-            var currentIndex = 0
-            var currentNode = this.head
+            currentIndex = 0
+            currentNode = this.head
             while (currentIndex !== index) {
                 currentIndex += 1
                 currentNode = this.head.next
-            }
-            return currentNode
+            } 
         } else {
-            var currentIndex = this.length - 1
-            var currentNode = this.tail
+            currentIndex = this.length - 1
+            currentNode = this.tail
             while (currentIndex !== index) {
                 currentIndex -= 1
                 currentNode = this.tail.prev
             }
         }
+        return currentNode.val
     }
 };
 
@@ -116,6 +118,7 @@ MyLinkedList.prototype.addAtIndex = function(index, val) {
         node.prev = prevNode
         currentNode.prev = node
         node.next = currentNode
+        this.length += 1
     }
 };
 
@@ -148,6 +151,7 @@ MyLinkedList.prototype.deleteAtIndex = function(index) {
     nextNode = currentNode.next
     prevNode.next = nextNode
     nextNode.prev = prevNode
+    this.length -= 1
 };
 
 /** 
