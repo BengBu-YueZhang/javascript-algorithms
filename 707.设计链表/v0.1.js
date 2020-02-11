@@ -54,6 +54,8 @@ MyLinkedList.prototype.addAtHead = function(val) {
     if (!this.head) {
         this.head = node
         this.tail = this.head
+        this.head.next = this.tail
+        this.tail.prev = this.head
     } else {
         var head = this.head
         node.next = head
@@ -73,6 +75,8 @@ MyLinkedList.prototype.addAtTail = function(val) {
     if (!this.tail) {
         this.tail = node
         this.head = this.tail
+        this.tail.prev = this.head
+        this.head.next = this.tail
     } else {
         var tail = this.tail
         node.prev = tail
