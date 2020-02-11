@@ -19,10 +19,6 @@ var MyLinkedList = function() {
  * @return {number}
  */
 MyLinkedList.prototype.get = function(index) {
-    // console.log(this.head.val)
-    // console.log(this.head.next.val)
-    // console.log(this.head.next.next.val)
-    // console.log('=====')
     if (index >= this.length || this.length === 0) {
         return -1
     } else {
@@ -140,13 +136,11 @@ MyLinkedList.prototype.deleteAtIndex = function(index) {
             this.length = 0
         } else {
             if (index === 0) {
-                var head = this.head
                 var newHead = this.head.next
                 newHead.prev = null
                 this.head = newHead
                 this.length -= 1
             } else if (index === this.length - 1) {
-                var tail = this.tail
                 var newTail = this.tail.prev
                 newTail.next = null
                 this.tail = newTail
