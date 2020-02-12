@@ -9,7 +9,6 @@ var MyNode = function (val, next, prev) {
  */
 var MyLinkedList = function() {
     this.head = null
-    this.tail = null
     this.length = 0
 };
 
@@ -19,28 +18,16 @@ var MyLinkedList = function() {
  * @return {number}
  */
 MyLinkedList.prototype.get = function(index) {
-    if (index >= this.length || this.length === 0) {
-        return -1
-    } else {
-        var currentIndex = null
-        var currentNode = null
-        // 减少遍历的次数
-        if (index < this.length / 2) {
-            currentIndex = 0
-            currentNode = this.head
-            while (currentIndex !== index) {
-                currentIndex += 1
-                currentNode = currentNode.next
-            } 
-        } else {
-            currentIndex = this.length - 1
-            currentNode = this.tail
-            while (currentIndex !== index) {
-                currentIndex -= 1
-                currentNode = currentNode.prev
-            }
+    if (index >= 0 && index < this.length) {
+        var pointer = 0
+        var currentNode = this.head
+        while (index !== pointer) {
+            pointer += 1
+            currentNode = currentNode.next
         }
         return currentNode.val
+    } else {
+        return -1
     }
 };
 
@@ -50,18 +37,11 @@ MyLinkedList.prototype.get = function(index) {
  * @return {void}
  */
 MyLinkedList.prototype.addAtHead = function(val) {
-    var node = new MyNode(val, null, null)
-    if (!this.head) {
-        this.head = node
-        this.tail = this.head
-        this.head.next = this.tail
-        this.tail.prev = this.head
-    } else {
-        var head = this.head
-        node.next = head
-        head.prev = node
-        this.head = node
+    var node = new MyNode(val, this.head, null)
+    if (this.head) {
+        this.head.prev = node
     }
+    this.head = node
     this.length += 1
 };
 
@@ -72,16 +52,15 @@ MyLinkedList.prototype.addAtHead = function(val) {
  */
 MyLinkedList.prototype.addAtTail = function(val) {
     var node = new MyNode(val, null, null)
-    if (!this.tail) {
-        this.tail = node
-        this.head = this.tail
-        this.tail.prev = this.head
-        this.head.next = this.tail
+    var currentNode = this.head
+    if (!this.head) {
+        this.head = node
     } else {
-        var tail = this.tail
-        node.prev = tail
-        tail.next = node
-        this.tail = node
+        while (currentNode && currentNode.next) {
+            currentNode = currentNode.next
+        }
+        currentNode.next = node
+        node.prev = currentNode
     }
     this.length += 1
 };
@@ -98,30 +77,17 @@ MyLinkedList.prototype.addAtIndex = function(index, val) {
     } else if (index === this.length) {
         this.addAtTail(val)
     } else if (index > 0 && index < this.length) {
-        var node = new MyNode(val, null, null)
-        var currentIndex = null
-        var currentNode = null
-        var prevNode = null
-        if (index < this.length / 2) {
-            currentIndex = 0
-            currentNode = this.head
-            while (currentIndex !== index) {
-                currentIndex += 1
-                currentNode = currentNode.next
-            }
-        } else {
-            currentIndex = this.length - 1
-            currentNode = this.tail
-            while (currentIndex !== index) {
-                currentIndex -= 1
-                currentNode = currentNode.prev
-            }
+        var pointer = 1
+        var prevNode = this.head
+        var currentNode = this.head.next
+        while (pointer !== index && currentNode) {
+            prevNode = currentNode
+            currentNode = currentNode.next
+            pointer += 1
         }
-        prevNode = currentNode.prev
+        var node = new MyNode(val, currentNode, prevNode)
         prevNode.next = node
-        node.prev = prevNode
         currentNode.prev = node
-        node.next = currentNode
         this.length += 1
     }
 };
@@ -132,50 +98,29 @@ MyLinkedList.prototype.addAtIndex = function(index, val) {
  * @return {void}
  */
 MyLinkedList.prototype.deleteAtIndex = function(index) {
-    // index有效的范围
-    if (index >= 0 && index < this.length - 1) {
-        if (this.length === 1) {
-            this.head = null
-            this.tail = null
-            this.length = 0
+    if (index >= 0 && index < this.length && this.length > 0) {
+        if (index === 0) {
+            this.head = this.head.next
+            // 这里考虑到，如果长度等于1是，做一个容错判断
+            if (this.head) {
+                this.head.prev = null
+            }
         } else {
-            if (index === 0) {
-                var newHead = this.head.next
-                newHead.prev = null
-                this.head = newHead
-                this.length -= 1
-            } else if (index === this.length - 1) {
-                var newTail = this.tail.prev
-                newTail.next = null
-                this.tail = newTail
-                this.length -= 1
-            } else if (index > 0 && index < this.length - 1) {
-                var currentIndex = null
-                var currentNode = null
-                var prevNode = null
-                var nextNode = null
-                if (this.index < this.length / 2) {
-                    currentIndex = 0
-                    currentNode = this.head
-                    while (currentIndex !== index) {
-                        currentIndex += 1
-                        currentNode = currentNode.next
-                    }
-                } else {
-                    currentIndex = this.length - 1
-                    currentNode = this.tail
-                    while (currentIndex !== index) {
-                        currentIndex -= 1
-                        currentNode = currentNode.prev
-                    }
-                }
-                prevNode = currentNode.prev
-                nextNode = currentNode.next
-                prevNode.next = nextNode
-                nextNode.prev = prevNode
-                this.length -= 1
+            let pointer = 1
+            let prevNode = this.head
+            let currentNode = this.head.next
+            while (pointer !== index && currentNode.next) {
+                prevNode = currentNode
+                currentNode = currentNode.next
+                pointer += 1
+            }
+            prevNode.next = prevNode.next.next
+            // 这里考虑到，如果时删除最后一个，做一个容错的判断
+            if (prevNode.next) {
+                prevNode.next.prev = prevNode
             }
         }
+        this.length -= 1
     }
 };
 
