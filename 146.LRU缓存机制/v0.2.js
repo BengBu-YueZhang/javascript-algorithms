@@ -32,12 +32,14 @@ LRUCache.prototype.get = function(key) {
  */
 LRUCache.prototype.put = function(key, value) {
     const put = () => {
-        const cache = {
+        let cache = {
             key,
             value
         }
         this.lru.addAtTail(cache)
-        this.hash.set(key, cache)
+        // 待优化，可以直接拿到链表的尾巴是最好的
+        let node = this.lru.get(this.lru.length - 1)
+        this.hash.set(key, node)
     }
     if (!this.hash.has(key)) {
         if (this.hash.size < this.capacity) {
