@@ -25,7 +25,7 @@ MyLinkedList.prototype.get = function(index) {
             pointer += 1
             currentNode = currentNode.next
         }
-        return currentNode.val
+        return currentNode
     } else {
         return -1
     }
