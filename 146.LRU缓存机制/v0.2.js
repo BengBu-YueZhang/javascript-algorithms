@@ -16,7 +16,7 @@ var LRUCache = function(capacity) {
 LRUCache.prototype.get = function(key) {
     if (this.hash.has(key)) {
         const cache = this.hash.get(key)
-        const value = cache.value
+        const value = cache.val.value
         this.lru.delete(cache)
         this.lru.addAtTail(cache)
         return value
@@ -44,7 +44,7 @@ LRUCache.prototype.put = function(key, value) {
             put()
         } else {
             // 删除过期的缓存
-            const overdueKey = this.lru.get(0).key
+            const overdueKey = this.lru.get(0).val.key
             this.lru.deleteAtIndex(0)
             this.hash.delete(overdueKey)
             // 添加新的缓存
