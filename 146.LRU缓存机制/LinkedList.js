@@ -141,7 +141,6 @@ MyLinkedList.prototype.delete = function (node) {
         } else if (!nextNode) {
             // 需要删除的是链表的尾巴
             prevNode.next = null
-            node.prev = null
         } else {
             prevNode.next = nextNode
             nextNode.prev = prevNode
