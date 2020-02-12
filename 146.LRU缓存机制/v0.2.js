@@ -1,8 +1,12 @@
+var LinkedList = require('./LinkedList')
+
 /**
  * @param {number} capacity
  */
 var LRUCache = function(capacity) {
-    
+    this.capacity = capacity
+    this.hash = new Map()
+    this.lru = new LinkedList()
 };
 
 /** 
@@ -10,7 +14,15 @@ var LRUCache = function(capacity) {
  * @return {number}
  */
 LRUCache.prototype.get = function(key) {
-    
+    if (this.hash.has(key)) {
+        const cache = this.hash.get(key)
+        const value = cache.value
+        this.lru.delete(cache)
+        this.lru.addAtTail(cache)
+        return value
+    } else {
+        return -1
+    }
 };
 
 /** 
@@ -19,7 +31,31 @@ LRUCache.prototype.get = function(key) {
  * @return {void}
  */
 LRUCache.prototype.put = function(key, value) {
-    
+    const put = () => {
+        const cache = {
+            key,
+            value
+        }
+        this.lru.addAtTail(cache)
+        this.hash.set(key, cache)
+    }
+    if (!this.hash.has(key)) {
+        if (this.hash.size < this.capacity) {
+            put()
+        } else {
+            // 删除过期的缓存
+            const overdueKey = this.lru.get(0).key
+            this.lru.deleteAtIndex(0)
+            this.hash.delete(overdueKey)
+            // 添加新的缓存
+            put()
+        }
+    } else {
+        // 更新缓存的位置
+        const cache = this.hash.get(key)
+        this.lru.delete(cache)
+        this.lru.addAtTail(cache)
+    }
 };
 
 /** 
