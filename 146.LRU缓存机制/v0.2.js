@@ -18,7 +18,7 @@ LRUCache.prototype.get = function(key) {
         const cache = this.hash.get(key)
         const value = cache.val.value
         this.lru.delete(cache)
-        this.lru.addAtTail(cache)
+        this.lru.addAtTail(cache.val)
         return value
     } else {
         return -1
@@ -56,7 +56,7 @@ LRUCache.prototype.put = function(key, value) {
         // 更新缓存的位置
         const cache = this.hash.get(key)
         this.lru.delete(cache)
-        this.lru.addAtTail(cache)
+        this.lru.addAtTail(cache.val)
     }
 };
 
