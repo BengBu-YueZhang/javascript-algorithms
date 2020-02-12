@@ -25,7 +25,7 @@ LRUCache.prototype.get = function(key) {
         }
         this.lru.addAtTail(cache)
         // 待优化，可以直接拿到链表的尾巴是最好的
-        let newNode = this.lru.get(this.lru.length - 1)
+        let newNode = this.lru.getTailNode
         this.hash.set(key, newNode)
         return value
     } else {
@@ -46,7 +46,7 @@ LRUCache.prototype.put = function(key, value) {
         }
         this.lru.addAtTail(cache)
         // 待优化，可以直接拿到链表的尾巴是最好的
-        let node = this.lru.get(this.lru.length - 1)
+        let node = this.lru.getTailNode
         this.hash.set(key, node)
     }
     if (!this.hash.has(key)) {
