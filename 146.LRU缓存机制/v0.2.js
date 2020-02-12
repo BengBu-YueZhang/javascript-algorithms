@@ -53,10 +53,12 @@ LRUCache.prototype.put = function(key, value) {
             put()
         }
     } else {
-        // 更新缓存的位置
+        // 获取之前的缓存
         const cache = this.hash.get(key)
+        // 删除之前缓存在链表中的位置
         this.lru.delete(cache)
-        this.lru.addAtTail(cache.val)
+        this.hash.delete(key)
+        put()
     }
 };
 
