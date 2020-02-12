@@ -59,16 +59,12 @@ MyLinkedList.prototype.addAtHead = function(val) {
  */
 MyLinkedList.prototype.addAtTail = function(val) {
     var node = new MyNode(val, null, null)
-    var currentNode = this.head
     if (!this.head) {
         this.head = node
         this.tail = node
     } else {
-        while (currentNode && currentNode.next) {
-            currentNode = currentNode.next
-        }
-        currentNode.next = node
-        node.prev = currentNode
+        this.tail.next = node
+        node.prev = this.tail
         this.tail = node
     }
     this.length += 1
