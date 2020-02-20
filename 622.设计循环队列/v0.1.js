@@ -32,7 +32,7 @@ MyCircularQueue.prototype.enQueue = function(value) {
                 this.tail += 1
             }
         }
-        this.queue.splice(this.tail, 0, value)
+        this.queue[this.tail] = value
         return true
     }
 };
