@@ -3,11 +3,16 @@
  * @param {number} k
  */
 var MyCircularQueue = function(k) {
+    this.len = k
+    this.init()
+};
+
+MyCircularQueue.prototype.init = function () {
     this.head = -1
     this.tail = -1
-    this.len = k
-    this.queue = []
-};
+    this.queue = new Array(this.len)
+    this.queue.fill('empty')
+}
 
 /**
  * Insert an element into the circular queue. Return true if the operation is successful. 
@@ -15,24 +20,20 @@ var MyCircularQueue = function(k) {
  * @return {boolean}
  */
 MyCircularQueue.prototype.enQueue = function(value) {
-    const length = this.queue.length
-    if (length >= this.len) {
-        // 如果队列是已经满了的情况下
+    if (this.isFull()) {
         return false
     } else {
-        // 如果队列不是满了的情况
-        if (this.tail === this.len - 1) {
-            // 如果尾巴在队列的最后面，那么把尾巴移动到数组的头部
-            this.tail = 0
+        if (this.isEmpty()) {
+            this.tail = this.head = 0
         } else {
-            // 如果尾巴不是在队列的最后面，每一次的插入都插到尾巴的后面
-            this.tail += 1
-            // 如果队列是空的情况下，不仅仅要设置尾巴还要设置头
-            if (this.tail === 0) {
-                this.head = 0
+            if (this.tail === this.len - 1) {
+                this.tail = 0
+            } else {
+                this.tail += 1
             }
         }
         this.queue.splice(this.tail, 0, value)
+        return true
     }
 };
 
@@ -41,7 +42,22 @@ MyCircularQueue.prototype.enQueue = function(value) {
  * @return {boolean}
  */
 MyCircularQueue.prototype.deQueue = function() {
-    
+    if (this.isEmpty()) {
+        return false
+    } else {
+        if (this.tail === this.head) {
+            // 重置整个队列
+            this.init()
+        } else {
+            this.queue.splice(this.head, 1, 'empty')
+            if (this.head === this.len - 1) {
+                this.head = 0
+            } else {
+                this.head += 1
+            }
+        }
+        return true
+    }
 };
 
 /**
@@ -49,7 +65,11 @@ MyCircularQueue.prototype.deQueue = function() {
  * @return {number}
  */
 MyCircularQueue.prototype.Front = function() {
-    
+    if (this.isEmpty()) {
+        return -1
+    } else {
+        return this.queue[this.head]
+    }
 };
 
 /**
@@ -57,7 +77,11 @@ MyCircularQueue.prototype.Front = function() {
  * @return {number}
  */
 MyCircularQueue.prototype.Rear = function() {
-    
+    if (this.isEmpty()) {
+        return -1
+    } else {
+        return this.queue[this.tail]
+    }
 };
 
 /**
@@ -65,7 +89,12 @@ MyCircularQueue.prototype.Rear = function() {
  * @return {boolean}
  */
 MyCircularQueue.prototype.isEmpty = function() {
-    
+    for (let i = 0; i < this.queue.length; i++) {
+        if (this.queue[i] !== 'empty') {
+            return false
+        }
+    }
+    return true
 };
 
 /**
@@ -73,7 +102,7 @@ MyCircularQueue.prototype.isEmpty = function() {
  * @return {boolean}
  */
 MyCircularQueue.prototype.isFull = function() {
-    
+    return !this.queue.includes('empty')
 };
 
 /** 
