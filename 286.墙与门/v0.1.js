@@ -36,12 +36,23 @@ var wallsAndGates = function(rooms) {
     // 广度优先搜索
     const bfs = (root, hash, distance) => {
         const children = getChildren(root)
+        // for (let i = 0; i < children.length; i++) {
+        //     if (!hash.has(children[i])) {
+        //         hash.set(children[i], true)
+        //         if (distance < children[i].distance) {
+        //             children[i].distance = distance
+        //         }
+        //         bfs(children[i], hash, distance + 1)
+        //     }
+        // }
+        for (let i = 0; i < children.length; i++) {
+            if (distance < children[i].distance) {
+                children[i].distance = distance
+            }
+        }
         for (let i = 0; i < children.length; i++) {
             if (!hash.has(children[i])) {
                 hash.set(children[i], true)
-                if (distance < children[i].distance) {
-                    children[i].distance = distance
-                }
                 bfs(children[i], hash, distance + 1)
             }
         }
@@ -86,3 +97,10 @@ var wallsAndGates = function(rooms) {
         }
     }
 };
+
+wallsAndGates(
+    [
+        [0,          2147483647, -1, 2147483647, 2147483647, -1],
+        [2147483647, 0,          -1, 2147483647, 0,          -1]
+    ]
+)
