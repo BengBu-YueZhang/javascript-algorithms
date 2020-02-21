@@ -113,9 +113,15 @@ var MovingAverage = function(size) {
  * @return {number}
  */
 MovingAverage.prototype.next = function(val) {
+    if (this.q.isFull()) {
+       this.q.deQueue() 
+    }
     this.q.enQueue(val)
     const size = this.q.size()
     const sum = this.q.sum()
+    if (size === 0) {
+        return 0
+    }
     return sum / size
 };
 
