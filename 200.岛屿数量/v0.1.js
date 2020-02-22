@@ -49,7 +49,7 @@ var numIslands = function(grid) {
         let temp = []
         for (let i = 0; i < queue.length; i++) {
             const lands = getNextLands(queue[i], hash)
-            temp = [...temp, lands]
+            temp = [...temp, ...lands]
             queue[i].value = '0'
         }
         if (temp.length > 0) {
@@ -88,15 +88,3 @@ var numIslands = function(grid) {
 
     return nums
 };
-
-
-console.log(
-    numIslands(
-        [
-            ["1","1","1","1","0"],
-            ["1","1","0","1","0"],
-            ["1","1","0","0","0"],
-            ["0","0","0","0","0"]
-        ]
-    )
-)
