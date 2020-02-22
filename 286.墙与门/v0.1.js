@@ -15,36 +15,54 @@ var wallsAndGates = function(rooms) {
     const doors = []
 
     // 获取节点（门，房间）的所有子节点
-    const getChildren = (node) => {
+    const getChildren = (node, hash) => {
         const { x, y } = node
         const children = []
         if (y - 1 >= 0 && rooms[y - 1][x].val === INF) {
-            children.push(rooms[y - 1][x])
+            if (!hash.has(rooms[y - 1][x])) {
+                hash.set(rooms[y - 1][x], true)
+                children.push(rooms[y - 1][x])
+            }
         }
         if (x - 1 >= 0 && rooms[y][x - 1].val === INF) {
-            children.push(rooms[y][x - 1])
+            if (!hash.has(rooms[y][x - 1])) {
+                hash.set(rooms[y][x - 1], true)
+                children.push(rooms[y][x - 1])
+            }
         }
         if (y + 1 <= height - 1 && rooms[y + 1][x].val === INF) {
-            children.push(rooms[y + 1][x])
+            if (!hash.has(rooms[y + 1][x])) {
+                hash.set(rooms[y + 1][x], true)
+                children.push(rooms[y + 1][x])
+            }
         }
         if (x + 1 <= width - 1 && rooms[y][x + 1].val === INF) {
-            children.push(rooms[y][x + 1])
+            if (!hash.has(rooms[y][x + 1])) {
+                hash.set(rooms[y][x + 1], true)
+                children.push(rooms[y][x + 1])
+            }
         }
         return children
     }
 
     // 广度优先搜索
-    const bfs = (root, hash, distance) => {
-        const children = getChildren(root)
-        for (let i = 0; i < children.length; i++) {
-            if (!hash.has(children[i])) {
-                if (distance < children[i].distance) {
-                    children[i].distance = distance
-                }
-                hash.set(children[i], true)
-                // 这里不算广度优先搜索，还是深度搜索
-                bfs(children[i], hash, distance + 1)
+    // 每一次只遍历同级的一层元素
+    const bfs = (
+        queue,
+        hash,
+        distance
+    ) => {
+        let temp = []
+        // 每一次只遍历一层
+        for (let i = 0; i < queue.length; i++) {
+            if (distance < queue[i].distance ) {
+                queue[i].distance = distance
             }
+            const children = getChildren(queue[i], hash)
+            temp = [...temp, ...children]
+        }
+        if (temp.length > 0) {
+            bfs(temp, hash, distance + 1)
         }
     }
 
@@ -69,7 +87,9 @@ var wallsAndGates = function(rooms) {
 
     for (let i = 0; i < doors.length; i++) {
         const hash = new Map()
-        bfs(doors[i], hash, 1)
+        hash.set(doors[i], true)
+        const temp = getChildren(doors[i], hash)
+        bfs(temp, hash, 1)
     }
 
     // 还原数组
@@ -87,11 +107,3 @@ var wallsAndGates = function(rooms) {
         }
     }
 };
-
-wallsAndGates(
-    [
-        [2147483647, 2147483647, -1,         2147483647],
-        [0,          2147483647, 2147483647, -1],
-        [0,          2147483647, -1,         -1]
-    ]
-)
