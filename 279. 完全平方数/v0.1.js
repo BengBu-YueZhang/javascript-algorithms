@@ -11,12 +11,6 @@ var numSquares = function(n) {
         squareNumber.push(i * i)
     }
 
-    console.log(squareNumber)
-
-    const getKey = (keys) => {
-        return keys.sort((a, b) => a - b).join(',')
-    }
-
     const bfs = (hash, num, queue) => {
         let tempQueue = []
 
