@@ -11,6 +11,8 @@ var numSquares = function(n) {
         squareNumber.push(i * i)
     }
 
+    console.log(squareNumber)
+
     const getKey = (keys) => {
         return keys.sort((a, b) => a - b).join(',')
     }
@@ -21,33 +23,38 @@ var numSquares = function(n) {
         num += 1
 
         for (let i = 0; i < queue.length; i++) {
-            const { val, parent, key } = queue[i]
+            const { val, parent } = queue[i]
+
             let tempSum = parent + val
+
+            if (tempSum === n) {
+                return num
+            }
+
             if (tempSum > n) {
+                // 如果大于直接减枝
                 continue
-            } else if (tempSum < n) {
+            } else {
                 let nextQueue = []
                 for (let i = 0; i < squareNumber.length; i++) {
-                    let newKey = getKey([...key, squareNumber[i]])
-                    if (
-                        tempSum + squareNumber[i] <= n &&
-                        !hash.has(newKey)
-                    ) {
-                        hash.set(newKey, true)
-                        nextQueue.push({
-                           val: squareNumber[i],
-                           parent: tempSum,
-                           key: newKey
-                        })
+                    let newKey = tempSum + squareNumber[i]
+                    if (tempSum + squareNumber[i] <= n) {
+                        // 如果重复计算直接减枝
+                        if (!hash.has(newKey)) {
+                            hash.set(newKey, true)
+                            nextQueue.push({
+                                val: squareNumber[i],
+                                parent: tempSum
+                            })
+                        }
+                    } else {
+                        continue
                     }
-
                 }
                 tempQueue = [
                     ...tempQueue,
                     ...nextQueue
                 ]
-            } else {
-                return num
             }
         }
 
@@ -61,7 +68,6 @@ var numSquares = function(n) {
 
     return bfs(hash, num, squareNumber.map(n => ({
         val: n,
-        parent: 0,
-        key: [0, n]
+        parent: 0
     })))
 };
