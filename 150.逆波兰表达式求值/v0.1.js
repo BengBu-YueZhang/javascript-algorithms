@@ -39,7 +39,6 @@ var evalRPN = function(tokens) {
             const a = Number(stack.pop())
             const b = Number(stack.pop())
             let result = null
-            console.log(a, b, tokens[i])
             switch (tokens[i]) {
                 case '+':
                     result = a + b 
@@ -55,7 +54,8 @@ var evalRPN = function(tokens) {
                         !(a + '').includes('.') &&
                         !(b + '').includes('.')
                     ) {
-                        result = Number((b / a).toFixed(0))
+                        // 整数除法只保留整数部分
+                        result = Number((b / a + '').split('.')[0])
                     } else {
                         result = b / a
                     }
