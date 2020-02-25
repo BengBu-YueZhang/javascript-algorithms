@@ -8,9 +8,9 @@ var findTargetSumWays = function(nums, S) {
     let temp = 0
     const sums = []
 
-    for (let i = 0; i < nums.length; i++) {
+    for (let i = nums.length - 1; i >= 0; i--) {
         temp += nums[i]
-        sums.push(temp)
+        sums[i] = temp
     }
 
     const needPruning = (val, level) => {
@@ -28,17 +28,17 @@ var findTargetSumWays = function(nums, S) {
         const currentDifference = parentValue - currentVal
 
         if (
-            currentSum === S && level === nums.length - 1
+            currentSum === S &&
+            level === nums.length - 1
         ) {
             result += 1
-            return
         }
 
         if (
-            currentDifference === S && level === nums.length - 1
+            currentDifference === S &&
+            level === nums.length - 1
         ) {
             result += 1
-            return
         }
 
         if (
