@@ -44,11 +44,11 @@ MyQueue.prototype.push = function(x) {
     if (this.mainStack.isEmpty()) {
         this.mainStack.push(x)
     } else {
-        while (this.mainStack.isEmpty()) {
+        while (!this.mainStack.isEmpty()) {
             this.viceStack.push(this.mainStack.pop())
         }
         this.mainStack.push(x)
-        while(this.viceStack.isEmpty()) {
+        while(!this.viceStack.isEmpty()) {
             this.mainStack.push(this.viceStack.pop())
         }
     }
