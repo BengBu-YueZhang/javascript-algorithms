@@ -62,7 +62,7 @@ MyStack.prototype.pop = function() {
  * @return {number}
  */
 MyStack.prototype.top = function() {
-    return this.mainQueue
+    return this.mainQueue.top()
 };
 
 /**
@@ -81,4 +81,3 @@ MyStack.prototype.empty = function() {
  * var param_3 = obj.top()
  * var param_4 = obj.empty()
  */
-
